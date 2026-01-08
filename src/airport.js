@@ -1,12 +1,13 @@
-import Flight from "./Flight.js";
+import Passenger from "./RegularPassenger.js";
 import Ticket from "./RegularTicket.js";
+import Student from "./StudentPassenger.js";
 import vipTicket from "./VIPTicket.js";
 
 export default class Airport {
-    constructor(name, city) {
+  constructor(name, city) {
     this.name = name;
-      this.city = city;
-      this.flights = []
+    this.city = city;
+    this.flights = [];
   }
   addFlight(flight) {
     this.flights.push(flight);
@@ -26,4 +27,33 @@ export default class Airport {
     }
     return arrTickets;
   }
+  buyTickets(passenger, ticket) {
+    if (passenger instanceof Student) {
+      if (ticket instanceof Ticket) {
+        passenger.amountOfMoney -= ticket.ticketPrice * 0.9;
+        ticket.ownerName = passenger.name;
+      }
+    } else if (passenger instanceof Passenger) {
+      if (passenger.knowsEmployee) {
+        if (ticket instanceof Ticket) {
+          passenger.amountOfMoney -= ticket.ticketPrice * 0.8;
+          ticket.ownerName = passenger.name;
+        } else if (ticket instanceof vipTicket) {
+          passenger.amountOfMoney -= ticket.ticketPrice * 0.85;
+          ticket.ownerName = passenger.name;
+        } else {
+          passenger.amountOfMoney -= ticket.ticketPrice;
+          ticket.ownerName = passenger.name;
+        }
+      }
+    }
+  }
 }
+
+//       const newPrice = ticketPrice * 0.8;
+//       this.amountOfMoney -= newPrice;
+//     } else {
+//       this.amountOfMoney -= ticketPrice;
+//     }
+
+// }

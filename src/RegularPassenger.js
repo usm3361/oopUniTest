@@ -13,7 +13,4 @@ export default class Passenger {
       return true;
     }
   }
-  buyTickets(ticketPrice) {
-    this.amountOfMoney -= ticketPrice;
-  }
 }
