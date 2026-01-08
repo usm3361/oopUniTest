@@ -17,13 +17,15 @@ export default class Airport {
     let count = 1;
     const vipNumTicket = maxPassengers * 0.1;
     const regNumTicket = maxPassengers * 0.9;
-    for (let vip; vip < vipNumTicket; vip++) {
+    for (let vip = 0; vip < vipNumTicket; vip++) {
       const newTicketVip = new vipTicket(count, vipTicketPrice);
       arrTickets.push(newTicketVip);
+      count++;
     }
-    for (let reg; reg < regNumTicket; reg++) {
+    for (let reg = 0; reg < regNumTicket; reg++) {
       const newTicket = new Ticket(count, regTicketPrice);
       arrTickets.push(newTicket);
+      count++;
     }
     return arrTickets;
   }
@@ -41,19 +43,11 @@ export default class Airport {
         } else if (ticket instanceof vipTicket) {
           passenger.amountOfMoney -= ticket.ticketPrice * 0.85;
           ticket.ownerName = passenger.name;
-        } else {
-          passenger.amountOfMoney -= ticket.ticketPrice;
-          ticket.ownerName = passenger.name;
         }
+      } else {
+        passenger.amountOfMoney -= ticket.ticketPrice;
+        ticket.ownerName = passenger.name;
       }
     }
   }
 }
-
-//       const newPrice = ticketPrice * 0.8;
-//       this.amountOfMoney -= newPrice;
-//     } else {
-//       this.amountOfMoney -= ticketPrice;
-//     }
-
-// }
