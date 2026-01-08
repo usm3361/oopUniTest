@@ -4,4 +4,5 @@ export default class Ticket{
         this.price = price
         this.ownerName = null
     }
+    IsPurchased(){}
 }

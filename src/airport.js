@@ -12,7 +12,7 @@ export default class Airport {
   addFlight(flight) {
     this.flights.push(flight);
   }
-  creatTickets(maxPassengers, regTicketPrice, vipTicketPrice) {
+  createTickets(maxPassengers, regTicketPrice, vipTicketPrice) {
     let arrTickets = [];
     let count = 1;
     const vipNumTicket = maxPassengers * 0.1;
@@ -29,25 +29,43 @@ export default class Airport {
     }
     return arrTickets;
   }
-  buyTickets(passenger, ticket) {
+  buyTicket(passenger, ticket) {
     if (passenger instanceof Student) {
       if (ticket instanceof Ticket) {
-        passenger.amountOfMoney -= ticket.ticketPrice * 0.9;
+        if (ticket.ownerName !== null)
+          throw new Error("The ticket has already been purchased");
+        passenger.amountOfMoney -= ticket.price * 0.9;
         ticket.ownerName = passenger.name;
       }
     } else if (passenger instanceof Passenger) {
       if (passenger.knowsEmployee) {
         if (ticket instanceof Ticket) {
-          passenger.amountOfMoney -= ticket.ticketPrice * 0.8;
-          ticket.ownerName = passenger.name;
+          if (ticket.ownerName !== null)
+            throw new Error("The ticket has already been purchased");
+          if (passenger.isThereEnoughMoney(ticket.price)) {
+            passenger.amountOfMoney -= ticket.price * 0.8;
+            ticket.ownerName = passenger.name;
+          } else {
+            throw new Error(
+              "There is not enough money to purchase the ticket"
+            );
+          }
         } else if (ticket instanceof vipTicket) {
-          passenger.amountOfMoney -= ticket.ticketPrice * 0.85;
+          if (ticket.ownerName !== null)
+            throw new Error("The ticket has already been purchased");
+          passenger.amountOfMoney -= ticket.price * 0.85;
           ticket.ownerName = passenger.name;
         }
-      } else {
-        passenger.amountOfMoney -= ticket.ticketPrice;
-        ticket.ownerName = passenger.name;
       }
+    } else {
+      if (ticket.ownerName !== null)
+        throw new Error("The ticket has already been purchased. ");
+      passenger.amountOfMoney -= ticket.ticketPrice;
+      ticket.ownerName = passenger.name;
     }
   }
 }
+// isAvailable(indexTickets) {
+//     for()
+// }
+// }
