@@ -1,6 +1,6 @@
-import Airport from "./src/classes/airport.js";
-import RegularPassenger from "./src/classes/passengers/RegularPassenger.js";
-import StudentPassenger from "./src/classes/passengers/StudentPassenger.js";
+import Airport from "../src/classes/airport.js";
+import RegularPassenger from "../src/classes/passengers/RegularPassenger.js";
+import StudentPassenger from "../src/classes/passengers/StudentPassenger.js";
 
 const airport = new Airport("Ben Gurion", "TLV");
 airport.initFlights()
